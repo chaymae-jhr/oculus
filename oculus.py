@@ -45,6 +45,10 @@ def main():
 			else:
 				pass
 			try:
+				functions.owasp_zap(ip)
+			except:
+				print(colored("[!] owasp couldn't be run correctly", 'red'))
+			try:
 				print(colored("[~] Running Nikto:", 'blue'))
 				os.system(SEC_PATH  + 'qterminal -e "nikto +h '+url+' -output '+path_dir+'/nikto.txt"') # This will run nikto to scan the target from top 10 owasp vuln
 				print(colored("[-] Nikto run successfully:", 'green'))
