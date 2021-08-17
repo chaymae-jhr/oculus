@@ -96,4 +96,13 @@ def ftp_nettacker(ftp_modules,ip):
     except:
         print(colored("[!] you need root privilege to run nettacker ", 'red'))
 
-ftp_brute('192.168.43.126',21)
+#*************** OWASP ZAP ******************
+
+def owasp_zap(ip):
+    print(colored("[~] Running OWASP ZAP, please wait:", 'blue'))
+    try:
+        print(colored("[~] owasp zap scan in process, please wait:", 'blue'))
+        os.system('/usr/bin/qterminal -e sudo docker run -t owasp/zap2docker-stable zap-full-scan.py -t http://'+ip+'/ > /root/tools/oculus-main/reports/'+str(ip)+'/zap.txt')
+        print(colored("[-] owasp zap scan successful:", 'green'))
+    except:
+        print(colored("[!] you need root privilege to run the scanner", 'red'))
