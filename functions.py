@@ -31,6 +31,17 @@ def tcp_protocols_test(ip):
                     cms=''
     return tcp_p,cms
 
+# protocols from nmap output -----------------------------------
+
+def protocols(tcp_ports):
+    l=[(),()]
+    for i in tcp_ports:
+        if i[1] == 'http':
+            l[0]=i
+        elif i[1] == 'ftp':
+            l[1]=i
+    return l
+
 #HTTP ----------------------------------------------------------------------------
 
 def wordpress_att(wp_modules,ip):
