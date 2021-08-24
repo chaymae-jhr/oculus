@@ -21,6 +21,7 @@ def args_parser():
 	parser = argparse.ArgumentParser()
 	parser.add_argument('-u', help='valid url or ip of the target')
 	return parser.parse_args()
+
 def main():
 	try:	
 		args = vars(args_parser())
@@ -31,10 +32,15 @@ def main():
 		print('The IP Address is :',ip)
 		tcp_ports,cms=functions.tcp_protocols_test(ip)
 		print(tcp_ports)
-		http=(80, 'http')
-		ftp=(21, 'ftp')
-		if http in tcp_ports:
-			print(colored("HTTP open port found", 'green'))
+		protocols=functions.protocols(tcp_ports)
+		http=protocols[0]
+		ftp=protocols[1]
+		ssh=protocols[2]
+		telnet=protocols[3]
+		smtp=protocols[4]
+		print(protocols)
+		if len(http) != 0  :
+			print(colored("HTTP open port found", 'yellow'))
 			if 'wordpress' in cms:
 				functions.wordpress_att('./net-modules/wp_modules.txt',ip)
 			elif 'joomla' in cms:
@@ -44,10 +50,6 @@ def main():
 	
 			else:
 				pass
-			try:
-				functions.owasp_zap(ip)
-			except:
-				print(colored("[!] owasp couldn't be run correctly", 'red'))
 			try:
 				print(colored("[~] Running Nikto:", 'blue'))
 				os.system(SEC_PATH  + 'qterminal -e "nikto +h '+url+' -output '+path_dir+'/nikto.txt"') # This will run nikto to scan the target from top 10 owasp vuln
@@ -61,10 +63,12 @@ def main():
 			except:
 				print(colored("[!] Gobuster couldn't be run correctly", 'red'))
 
-		if ftp in tcp_ports:
-			print(colored("FTP open port found", 'green'))
+		if len(ftp) != 0:
+			print(colored("FTP open port found", 'yellow'))
 			try:
-				ftp_port=21
+				print(ftp)
+				ftp_port=ftp[0]
+				print(ftp_port)
 				print(colored("[~] FTP brute force in process, please wait:",'blue'))
 				functions.ftp_brute(ip,ftp_port)
 				functions.ftp_nettacker('/home/thevbait/Downloads/studies/oculus/net-modules/ftp_modules',ip)
@@ -73,7 +77,7 @@ def main():
 				print(colored("[!] FTP Testing failed", 'red'))
 
 
-		if 'smtp' in tcp_ports:
+		if len(smtp) != 0:
 			pass
 		else:
 			pass
