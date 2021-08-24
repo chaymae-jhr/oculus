@@ -34,12 +34,18 @@ def tcp_protocols_test(ip):
 # protocols from nmap output -----------------------------------
 
 def protocols(tcp_ports):
-    l=[(),()]
+    l=[(),(),(),(),()]
     for i in tcp_ports:
         if i[1] == 'http':
             l[0]=i
         elif i[1] == 'ftp':
             l[1]=i
+        elif i[1] == 'ssh':
+            l[2]=i
+        elif i[1] == 'telnet':
+            l[3]=i
+        elif i[1] == 'smtp':
+            l[4]=i
     return l
 
 #HTTP ----------------------------------------------------------------------------
@@ -50,7 +56,7 @@ def wordpress_att(wp_modules,ip):
     command_string=','.join(commandl)
     try:
         print(colored("[~] Wordpress brute force in process, please wait:", 'blue'))
-        os.system('/usr/bin/qterminal -e sudo python '+netpath+' -i'+ip+' -m'+command_string+' >> /home/thevbait/Downloads/studies/oculus/reports/'+str(ip)+'/wordpress.txt')
+        os.system('/usr/bin/qterminal -e sudo python '+netpath+' -i'+ip+' -m'+command_string+' -o /home/thevbait/Downloads/studies/oculus/reports/'+str(ip)+'/wordpress.txt')
         os.system('/usr/bin/qterminal -e sudo wpscan --url'+ip+' -P /home/thevbait/Downloads/studies/oculus/wordlists/rock100.txt >> /home/thevbait/Downloads/studies/oculus/reports/'+str(ip)+'/wordpress.txt')
         print(colored("[-] Wordpress brute force successful:", 'green'))
     except:
@@ -65,7 +71,7 @@ def joomla_nettacker(joomla_modules,ip):
     command_string=','.join(commandl)
     try:
         print(colored("[~] joomla scan in process, please wait:", 'blue'))
-        os.system('/usr/bin/qterminal -e sudo python '+netpath+' -i'+ip+' -m'+command_string+' >> /home/thevbait/Downloads/studies/oculus/reports/'+str(ip)+'/joomla.txt')
+        os.system('/usr/bin/qterminal -e sudo python '+netpath+' -i'+ip+' -m'+command_string+' -o /home/thevbait/Downloads/studies/oculus/reports/'+str(ip)+'/joomla.txt')
         print(colored("[-] joomla scan successful:", 'green'))
     except:
         print(colored("[!] you need root privilege to run the scanner", 'red'))
@@ -79,15 +85,13 @@ def drupal_nettacker(drupal_modules,ip):
     command_string=','.join(commandl)
     try:
         print(colored("[~] drupal scan in process, please wait:", 'blue'))
-        os.system('/usr/bin/qterminal -e sudo python '+netpath+' -i'+ip+' -m'+command_string+' >> /home/thevbait/Downloads/studies/oculus/reports/'+str(ip)+'/drupal.txt')
+        os.system('/usr/bin/qterminal -e sudo python '+netpath+' -i'+ip+' -m'+command_string+' -o /home/thevbait/Downloads/studies/oculus/reports/'+str(ip)+'/drupal.txt')
         print(colored("[-] drupal scan successful:", 'green'))
     except:
         print(colored("[!] you need root privilege to run the scanner", 'red'))
 
 def general():
     pass
-
-
 
 #FTP ----------------------------------------------------------------------------
 def ftp_brute(ip,port):
@@ -107,13 +111,21 @@ def ftp_nettacker(ftp_modules,ip):
     except:
         print(colored("[!] you need root privilege to run nettacker ", 'red'))
 
-#*************** OWASP ZAP ******************
-
-def owasp_zap(ip):
-    print(colored("[~] Running OWASP ZAP, please wait:", 'blue'))
+#SSH ----------------------------------------------------------------------------
+def ssh_brute(ip,port):
+    ssh_users='/home/thevbait/Downloads/studies/oculus/wordlists/ssh_default_users.txt'
+    ssh_pw='/home/thevbait/Downloads/studies/oculus/wordlists/ssh_default_passwords.txt'
+    print(colored("[~] Running Hydra to brute force SSH, please wait:", 'blue'))
     try:
-        print(colored("[~] owasp zap scan in process, please wait:", 'blue'))
-        os.system('/usr/bin/qterminal -e sudo docker run -t owasp/zap2docker-stable zap-full-scan.py -t http://'+ip+'/ > /root/tools/oculus-main/reports/'+str(ip)+'/zap.txt')
-        print(colored("[-] owasp zap scan successful:", 'green'))
+        os.system('/usr/bin/qterminal -e sudo hydra -L '+str(ssh_users)+' -P '+str(ssh_pw)+' ssh://'+str(ip)+' -t 4 -s'+str(port)+' -o /home/thevbait/Downloads/studies/oculus/reports/'+str(ip)+'/ssh.txt')
     except:
-        print(colored("[!] you need root privilege to run the scanner", 'red'))
+        print(colored("[!] problem running Hydra", 'red'))
+#SMTP ----------------------------------------------------------------------------
+def smtp_brute(enum_wordlist,ip):
+    print(colored("[~] Enumerating users using SMTP VRFY, please wait:", 'blue'))
+    try:
+        os.system('/usr/bin/qterminal -e sudo smtp-user-enum -M VRFY -U '+enum_wordlist+' -t '+str(ip)+' >> /home/thevbait/Downloads/studies/oculus/reports/'+str(ip)+'/smtp_enum.txt')
+    except:
+        print(colored("[!] problem running smtp_user_enum", 'red'))
+
+
