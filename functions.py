@@ -39,33 +39,24 @@ def protocols(tcp_ports):
     for i in tcp_ports:
         if 'http' not in g:
             if i[1] == 'http':
-            
-                print(l)
                 l[0]=i
                 g.append('http')
         if 'ftp' not in g:
             if i[1] == 'ftp':
-                print(l)
                 l[1]=i
-                print(l)
                 g.append('ftp')
-                print(g)
         if 'ssh' not in g:
             if i[1] == 'ssh':
-                print(l)
                 l[2]=i
                 g.append('ssh')
         if 'telnet' not in g:
             if i[1] == 'telnet':
-                print(l)
                 l[3]=i
                 g.append('telnet')
         if 'smtp' not in g:
             if i[1] == 'smtp':
-                print(l)
                 l[4]=i
                 g.append('smtp')
-                print(g)
     return l
 
 #HTTP ----------------------------------------------------------------------------
