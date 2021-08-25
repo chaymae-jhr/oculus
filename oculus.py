@@ -56,12 +56,7 @@ def main():
 				print(colored("[-] Nikto run successfully:", 'green'))
 			except:
 				print(colored("[!] Nikto couldn't be run correctly", 'red'))
-			try:
-				print(colored("[~] Running Gobuster:", 'blue'))
-				os.system(SEC_PATH  + 'qterminal -e "gobuster -u '+url+ ' -w /home/eddie/Bureau/tools/directory-list-2.3-medium.txt /dirsearch.txt"') # This will run gobuster against the target to find hidden folders and files in the server (in will work if there is a web server) !
-				print(colored("[-] Gobuster run successfully:", 'green'))
-			except:
-				print(colored("[!] Gobuster couldn't be run correctly", 'red'))
+			
 
 		if len(ftp) != 0:
 			print(colored("FTP open port found", 'yellow'))
