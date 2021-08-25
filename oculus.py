@@ -90,12 +90,12 @@ def main():
 				functions.smtp_enum('/usr/share/wordlists/fern-wifi/common.txt',ip)
 			except:
 				print(colored("[!] SMTP Testing failed", 'red'))
-		else:
-			pass
+		print(colored("[-] OCULUS scan done:",'green'))
+
 	except ValueError as e:
 		print(e)
 	except:
-		print("failed")
+		print(colored("[!] OCULUS scan failed",'red'))
 	
 	
 
