@@ -138,5 +138,14 @@ def smtp_brute(enum_wordlist,ip):
         os.system('/usr/bin/qterminal -e sudo smtp-user-enum -M VRFY -U '+enum_wordlist+' -t '+str(ip)+' >> /home/thevbait/Downloads/studies/oculus/reports/'+str(ip)+'/smtp_enum.txt')
     except:
         print(colored("[!] problem running smtp_user_enum", 'red'))
+#telnet ----------------------------------------------------------------------------
+def telnet_brute(ip):
+    print(colored("[~] Running Hydra to brute force telnet, please wait:", 'blue'))
+    telnet_users=''+ocpath+'/wordlists/ssh_default_users.txt'
+    telnet_pw=''+ocpath+'/wordlists/telnet_default_creds.txt'
+    try:
+        os.system('/usr/bin/qterminal -e sudo hydra -L '+str(telnet_users)+' -P '+str(telnet_pw)+' '+str(ip)+' telnet >> '+ocpath+'/reports/'+str(ip)+'/telnet.txt')
+    except:
+        print(colored("[!] problem running Hydra for telnet bruteforce", 'red'))
 
 
