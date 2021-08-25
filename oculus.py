@@ -82,8 +82,15 @@ def main():
 				functions.ssh_brute(ip,ssh_port)
 			except:
 				print(colored("[!] SSH Testing failed", 'red'))
-		else:
-			pass
+		
+		if len(telnet) != 0:
+			try:
+			#	telnet_port = telnet[0]
+			#	print(ssh_port)
+				print(colored("[~] telnet brute force in process, please wait:",'blue'))
+				functions.telnet_brute(ip)
+			except:
+				print(colored("[!] telnet Testing failed", 'red'))
 		if len(smtp) != 0:
 			try:
 				smtp = smtp[0]
