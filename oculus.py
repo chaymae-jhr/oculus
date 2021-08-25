@@ -8,6 +8,7 @@ import file_mg as file
 from art import *
 from termcolor import colored
 import functions
+import zap_scan
 
 SEC_PATH = "/usr/bin/"
 
@@ -31,7 +32,6 @@ def main():
 		ip = ad.get(url)
 		print('The IP Address is :',ip)
 		tcp_ports,cms=functions.tcp_protocols_test(ip)
-		print(tcp_ports)
 		protocols=functions.protocols(tcp_ports)
 		http=protocols[0]
 		ftp=protocols[1]
@@ -56,14 +56,17 @@ def main():
 				print(colored("[-] Nikto run successfully:", 'green'))
 			except:
 				print(colored("[!] Nikto couldn't be run correctly", 'red'))
-			
+			try:
+				print(colored("[~] Running OWASP zed attack proxy active scan:", 'blue'))
+				zap_scan.spidering(url)
+				zap_scan.activescan(url)
+			except:
+				print(colored("[!] owasp zap couldn't be run correctly, plase check the url format, set the port to 8080 and check the key ", 'red'))
 
 		if len(ftp) != 0:
 			print(colored("FTP open port found", 'yellow'))
 			try:
-				print(ftp)
 				ftp_port=ftp[0]
-				print(ftp_port)
 				print(colored("[~] FTP brute force in process, please wait:",'blue'))
 				functions.ftp_brute(ip,ftp_port)
 				functions.ftp_nettacker('/home/thevbait/Downloads/studies/oculus/net-modules/ftp_modules',ip)
@@ -71,9 +74,22 @@ def main():
 			except:
 				print(colored("[!] FTP Testing failed", 'red'))
 
-
-		if len(smtp) != 0:
+		if len(ssh) != 0:
+			try:
+				ssh_port = ssh[0]
+				print(colored("[~] FTP brute force in process, please wait:",'blue'))
+				functions.ssh_brute(ip,ssh_port)
+			except:
+				print(colored("[!] SSH Testing failed", 'red'))
+		else:
 			pass
+		if len(smtp) != 0:
+			try:
+				smtp = smtp[0]
+				print(colored("[~] SMTP exploit in process, please wait:",'blue'))
+				functions.smtp_enum('/usr/share/wordlists/fern-wifi/common.txt',ip)
+			except:
+				print(colored("[!] SMTP Testing failed", 'red'))
 		else:
 			pass
 	except ValueError as e:
