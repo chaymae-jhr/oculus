@@ -35,17 +35,37 @@ def tcp_protocols_test(ip):
 
 def protocols(tcp_ports):
     l=[(),(),(),(),()]
+    g=[]
     for i in tcp_ports:
-        if i[1] == 'http':
-            l[0]=i
-        elif i[1] == 'ftp':
-            l[1]=i
-        elif i[1] == 'ssh':
-            l[2]=i
-        elif i[1] == 'telnet':
-            l[3]=i
-        elif i[1] == 'smtp':
-            l[4]=i
+        if 'http' not in g:
+            if i[1] == 'http':
+            
+                print(l)
+                l[0]=i
+                g.append('http')
+        if 'ftp' not in g:
+            if i[1] == 'ftp':
+                print(l)
+                l[1]=i
+                print(l)
+                g.append('ftp')
+                print(g)
+        if 'ssh' not in g:
+            if i[1] == 'ssh':
+                print(l)
+                l[2]=i
+                g.append('ssh')
+        if 'telnet' not in g:
+            if i[1] == 'telnet':
+                print(l)
+                l[3]=i
+                g.append('telnet')
+        if 'smtp' not in g:
+            if i[1] == 'smtp':
+                print(l)
+                l[4]=i
+                g.append('smtp')
+                print(g)
     return l
 
 #HTTP ----------------------------------------------------------------------------
