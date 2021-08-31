@@ -1,10 +1,14 @@
 import time
 from zapv2 import ZAPv2
 from termcolor import colored
+from zapv2.ascan import ascan
+from zapv2.core import core
+import os
 
 # The URL of the application to be tested
 
-apiKey = 'q3qmcldb47fruoq48oojulsi2u'
+ocpath='/home/administrateur/oculus/oculus'
+apiKey = 'k5bt414j2r1d7roiul6funj0cu'
 
 # By default ZAP API client will connect to port 8080
 zap = ZAPv2(apikey=apiKey)
@@ -22,7 +26,7 @@ def spidering(target):
     print(colored('\n'.join(map(str, zap.spider.results(scanID))),"magenta"))
     # If required post process the spider results
     
-def activescan(target):
+def activescan(target,report_path):
     print(colored("[~] Running OWASP zed attack proxy active scan:", 'blue'))
     print(colored('Active Scanning target {}'.format(target),"yellow"))
     scanID = zap.ascan.scan(target)
@@ -31,11 +35,11 @@ def activescan(target):
         print(colored('[~] Scan progress %: {}'.format(zap.ascan.status(scanID)),"blue"))
         time.sleep(5)
 
-    print('Active Scan completed')
+    print(colored('[-] Active scan completed!',"green"))
     # Print vulnerabilities found by the scanning
     print(colored('Hosts: {}'.format(', '.join(zap.core.hosts)),"magenta"))
     print(colored('[!] Alerts: ',"red"))
     print(colored(zap.core.alerts(baseurl=target),"red"))
-    with open(str(target)+'/zap_report.html','w') as f:f.write(zap.core.htmlreport(apikey='apikey'))
-    print(colored('[-] HTML report generated',"green"))
-
+    print(colored('[-] HTML report generated','green'))
+    print(zap.core.htmlreport)
+    os.system('/usr/bin/qterminal -e curl http://127.0.0.1:8080/OTHER/core/other/htmlreport/?apikey='+apiKey+' >> '+report_path)
