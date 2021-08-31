@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-#https://meet.google.com/cyq-qoxb-zsa
 import argparse
 import os
 import sys
@@ -12,7 +11,7 @@ import functions
 import zap_scan
 
 SEC_PATH = "/usr/bin/"
-
+ocpath='/home/administrateur/oculus/oculus'
 def print_banner():
 	print(colored(text2art ("OCULUS"),'cyan'))
 	print(colored("|_ Version :", 'red',attrs=['bold']),colored(" 1.0#beta","cyan"))
@@ -59,8 +58,9 @@ def main():
 				print(colored("[!] Nikto couldn't be run correctly", 'red'))
 			try:
 				print(colored("[~] Running OWASP zed attack proxy active scan:", 'blue'))
-				zap_scan.spidering(url)
-				zap_scan.activescan(url)
+				urlzap=functions.formaturl(url)
+				zap_scan.spidering(urlzap)
+				zap_scan.activescan(urlzap,ocpath+'/reports/'+ip+'zap_report.html')
 			except:
 				print(colored("[!] owasp zap couldn't be run correctly, plase check the url format, set the port to 8080 and check the key ", 'red'))
 
@@ -70,7 +70,7 @@ def main():
 				ftp_port=ftp[0]
 				print(colored("[~] FTP brute force in process, please wait:",'blue'))
 				functions.ftp_brute(ip,ftp_port)
-				functions.ftp_nettacker('/home/thevbait/Downloads/studies/oculus/net-modules/ftp_modules',ip)
+				functions.ftp_nettacker(ocpath+'/net-modules/ftp_modules',ip)
 				print(colored("[-] FTP brute force done:",'green'))
 			except:
 				print(colored("[!] FTP Testing failed", 'red'))
