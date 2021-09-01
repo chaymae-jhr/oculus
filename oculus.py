@@ -12,13 +12,13 @@ import zap_scan
 
 SEC_PATH = "/usr/bin/"
 ocpath='/home/administrateur/oculus/oculus'
-def print_banner():
+def print_banner(): #Print the oculus banner 
 	print(colored(text2art ("OCULUS"),'cyan'))
 	print(colored("|_ Version :", 'red',attrs=['bold']),colored(" 1.0#beta","cyan"))
 	print(colored("|_ Authors :", 'red',attrs=['bold']),colored(" Ilham & Chaymae","cyan"))
 	print(colored("|_ Usage :",'red',attrs=['bold']),colored(" python3 oculus.py [options]","cyan"))
 
-def args_parser():
+def args_parser():#parse the argument given and select the ip 
 	parser = argparse.ArgumentParser()
 	parser.add_argument('-u', help='valid url or ip of the target')
 	return parser.parse_args()
@@ -30,9 +30,10 @@ def main():
 		path_dir ="reports/" + url
 		file.create_dir(path_dir)
 		ip = ad.get(url)
-		print('The IP Address is :',ip)
-		tcp_ports,cms=functions.tcp_protocols_test(ip)
+		print('The IP Address is :',ip)	
+		tcp_ports,cms=functions.tcp_protocols_test(ip) #get a dictionnary of services running on the vm and the cms if used 
 		protocols=functions.protocols(tcp_ports)
+		# define important TCP protocols	
 		http=protocols[0]
 		ftp=protocols[1]
 		ssh=protocols[2]
@@ -40,7 +41,7 @@ def main():
 		smtp=protocols[4]
 		print(colored('the protocols that were detected : ','green',colored(protocols,'cyan')))
 		if len(http) != 0  :
-			print(colored("HTTP open port found", 'yellow'))
+			print(colored("HTTP open port found", 'yellow')) 
 			if 'wordpress' in cms:
 				print(colored("Wordpress template found", 'yellow'))
 				functions.wordpress_att('./net-modules/wp_modules',ip)
@@ -88,8 +89,8 @@ def main():
 		
 		if len(telnet) != 0:
 			try:
-			#	telnet_port = telnet[0]
-			#	print(ssh_port)
+				telnet_port = telnet[0]
+				print(ssh_port)
 				print(colored("[~] telnet brute force in process, please wait:",'blue'))
 				functions.telnet_brute(ip)
 			except:
