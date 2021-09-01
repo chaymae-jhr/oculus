@@ -38,18 +38,18 @@ def main():
 		ssh=protocols[2]
 		telnet=protocols[3]
 		smtp=protocols[4]
-		print(protocols)
+		print(colored('the protocols that were detected : ','green',colored(protocols,'cyan')))
 		if len(http) != 0  :
 			print(colored("HTTP open port found", 'yellow'))
 			if 'wordpress' in cms:
 				print(colored("Wordpress template found", 'yellow'))
-				functions.wordpress_att('./net-modules/wp_modules.txt',ip)
+				functions.wordpress_att('./net-modules/wp_modules',ip)
 			elif 'joomla' in cms:
 				print(colored("Joomla template found", 'yellow'))
-				functions.joomla_nettacker('./net-modules/joomla_modules.txt',ip)
+				functions.joomla_nettacker('./net-modules/joomla_modules',ip)
 			elif 'drupal' in cms:
 				print(colored("Drupal template found", 'yellow'))
-				functions.drupal_nettacker('./net-modules/drupal_modules.txt',ip)
+				functions.drupal_nettacker('./net-modules/drupal_modules',ip)
 	
 			else:
 				pass
@@ -63,7 +63,7 @@ def main():
 				print(colored("[~] Running OWASP zed attack proxy active scan:", 'blue'))
 				urlzap=functions.formaturl(url)
 				zap_scan.spidering(urlzap)
-				zap_scan.activescan(urlzap,ocpath+'/reports/'+ip+'zap_report.html')
+				zap_scan.activescan(urlzap,ocpath+'/reports/'+ip+'/zap_report.html')
 			except:
 				print(colored("[!] owasp zap couldn't be run correctly, plase check the url format, set the port to 8080 and check the key ", 'red'))
 
