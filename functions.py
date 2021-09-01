@@ -76,8 +76,8 @@ def wordpress_att(wp_modules,ip):
     command_string=','.join(commandl)
     try:
         print(colored("[~] Wordpress brute force in process, please wait:", 'blue'))
-        os.system('/usr/bin/qterminal -e sudo python2 '+netpath+' -i'+ip+' -m'+command_string+' -o '+ocpath+'/reports/'+str(ip)+'/wordpress.txt')
-        os.system('/usr/bin/qterminal -e sudo wpscan --url'+ip+' -P '+ocpath+'/wordlists/rock100.txt >> '+ocpath+'/reports/'+str(ip)+'/wordpress.txt')
+        os.system('/usr/bin/qterminal 2> /dev/null -e sudo python2 '+netpath+' -i'+ip+' -m'+command_string+' -o '+ocpath+'/reports/'+str(ip)+'/wordpress.txt')
+        os.system('/usr/bin/qterminal 2> /dev/null -e sudo wpscan --url'+ip+' -P '+ocpath+'/wordlists/rock100.txt >> '+ocpath+'/reports/'+str(ip)+'/wordpress.txt')
         print(colored("[-] Wordpress brute force successful:", 'green'))
     except:
         print(colored("[!] you need root privilege to run the scanner", 'red'))
@@ -91,7 +91,7 @@ def joomla_nettacker(joomla_modules,ip):
     command_string=','.join(commandl)
     try:
         print(colored("[~] joomla scan in process, please wait:", 'blue'))
-        os.system('/usr/bin/qterminal -e sudo python2 '+netpath+' -i'+ip+' -m'+command_string+' -o '+ocpath+'/reports/'+str(ip)+'/joomla.txt')
+        os.system('/usr/bin/qterminal 2> /dev/null -e sudo python2 '+netpath+' -i'+ip+' -m'+command_string+' -o '+ocpath+'/reports/'+str(ip)+'/joomla.txt')
         print(colored("[-] joomla scan successful:", 'green'))
     except:
         print(colored("[!] you need root privilege to run the scanner", 'red'))
@@ -105,7 +105,7 @@ def drupal_nettacker(drupal_modules,ip):
     command_string=','.join(commandl)
     try:
         print(colored("[~] drupal scan in process, please wait:", 'blue'))
-        os.system('/usr/bin/qterminal -e sudo python2 '+netpath+' -i'+ip+' -m'+command_string+' -o '+ocpath+'/reports/'+str(ip)+'/drupal.txt')
+        os.system('/usr/bin/qterminal 2> /dev/null -e sudo python2 '+netpath+' -i'+ip+' -m'+command_string+' -o '+ocpath+'/reports/'+str(ip)+'/drupal.txt')
         print(colored("[-] drupal scan successful:", 'green'))
     except:
         print(colored("[!] you need root privilege to run the scanner", 'red'))
@@ -117,7 +117,7 @@ def general():
 def ftp_brute(ip,port):
     print(colored("[~] Running ncrack, please wait:", 'blue'))
     print(str(ip)+':'+str(port))
-    os.system('/usr/bin/qterminal -e sudo ncrack --pairwise '+str(ip)+':'+str(port)+' -oN '+ocpath+'/reports/'+str(ip)+'/ftp.txt')
+    os.system('/usr/bin/qterminal 2> /dev/null -e sudo ncrack --pairwise '+str(ip)+':'+str(port)+' -oN '+ocpath+'/reports/'+str(ip)+'/ftp.txt')
     print('salam')
 
 def ftp_nettacker(ftp_modules,ip):
@@ -127,7 +127,7 @@ def ftp_nettacker(ftp_modules,ip):
     command_string=','.join(commandl)
     print(command_string)
     try:
-        os.system('/usr/bin/qterminal -e sudo python2 '+netpath+' -i'+ip+' -m '+command_string+' -o '+ocpath+'/reports/'+str(ip)+'/ftp_nettacker.txt')
+        os.system('/usr/bin/qterminal 2> /dev/null -e sudo python2 '+netpath+' -i'+ip+' -m '+command_string+' -o '+ocpath+'/reports/'+str(ip)+'/ftp_nettacker.txt')
     except:
         print(colored("[!] you need root privilege to run nettacker ", 'red'))
 
@@ -137,14 +137,14 @@ def ssh_brute(ip,port):
     ssh_pw=''+ocpath+'/wordlists/ssh_default_passwords.txt'
     print(colored("[~] Running Hydra to brute force SSH, please wait:", 'blue'))
     try:
-        os.system('/usr/bin/qterminal -e sudo hydra -L '+str(ssh_users)+' -P '+str(ssh_pw)+' ssh://'+str(ip)+' -t 4 -s '+str(port)+' -o '+ocpath+'/reports/'+str(ip)+'/ssh.txt')
+        os.system('/usr/bin/qterminal 2> /dev/null -e sudo hydra -L '+str(ssh_users)+' -P '+str(ssh_pw)+' ssh://'+str(ip)+' -t 4 -s '+str(port)+' -o '+ocpath+'/reports/'+str(ip)+'/ssh.txt')
     except:
         print(colored("[!] problem running Hydra for ssh bruteforce", 'red'))
 #SMTP ----------------------------------------------------------------------------
 def smtp_brute(enum_wordlist,ip):
     print(colored("[~] Enumerating users using SMTP VRFY, please wait:", 'blue'))
     try:
-        os.system('/usr/bin/qterminal -e sudo smtp-user-enum -M VRFY -U '+enum_wordlist+' -t '+str(ip)+' >> '+ocpath+'/reports/'+str(ip)+'/smtp_enum.txt')
+        os.system('/usr/bin/qterminal 2> /dev/null-e sudo smtp-user-enum -M VRFY -U '+enum_wordlist+' -t '+str(ip)+' >> '+ocpath+'/reports/'+str(ip)+'/smtp_enum.txt')
     except:
         print(colored("[!] problem running smtp_user_enum", 'red'))
 
@@ -154,7 +154,7 @@ def telnet_brute(ip):
     telnet_users=''+ocpath+'/wordlists/ssh_default_users.txt'
     telnet_pw=''+ocpath+'/wordlists/telnet_default_creds.txt'
     try:
-        os.system('/usr/bin/qterminal -e sudo hydra -L '+str(telnet_users)+' -P '+str(telnet_pw)+' '+str(ip)+' telnet >> '+ocpath+'/reports/'+str(ip)+'/telnet.txt')
+        os.system('/usr/bin/qterminal 2> /dev/null -e sudo hydra -L '+str(telnet_users)+' -P '+str(telnet_pw)+' '+str(ip)+' telnet >> '+ocpath+'/reports/'+str(ip)+'/telnet.txt')
     except:
         print(colored("[!] problem running Hydra for telnet bruteforce", 'red'))
 
