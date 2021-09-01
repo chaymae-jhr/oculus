@@ -4,6 +4,7 @@ from termcolor import colored
 from zapv2.ascan import ascan
 from zapv2.core import core
 import os
+#we tried to implement zap API basic scans 
 
 ocpath='/home/administrateur/oculus/oculus'
 apiKey = 'k5bt414j2r1d7roiul6funj0cu'
@@ -22,9 +23,8 @@ def spidering(target):
     print(colored('[-] Spider has completed!',"green"))
     # Prints the URLs the spider has crawled
     print(colored('\n'.join(map(str, zap.spider.results(scanID))),"magenta"))
-
     
-def activescan(target,report_path):
+def activescan(target,report_path): # ZAP ACTIVE SCAN
     print(colored("[~] Running OWASP zed attack proxy active scan:", 'blue'))
     print(colored('Active Scanning target {}'.format(target),"yellow"))
     scanID = zap.ascan.scan(target)
@@ -40,4 +40,5 @@ def activescan(target,report_path):
     else:
         print(colored('[-] Scan Done : No alerts found','green'))
     print(colored('[-] HTML report generated','green'))
+    #generate HTML report 
     os.system('/usr/bin/qterminal 2> /dev/null -e curl http://127.0.0.1:8080/OTHER/core/other/htmlreport/?apikey='+apiKey+' -o '+report_path)
