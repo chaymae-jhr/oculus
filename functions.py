@@ -76,8 +76,8 @@ def wordpress_att(wp_modules,ip):
     command_string=','.join(commandl)
     try:
         print(colored("[~] Wordpress brute force in process, please wait:", 'blue'))
-        os.system('/usr/bin/qterminal 2> /dev/null -e sudo python2 '+netpath+' -i'+ip+' -m'+command_string+' -o '+ocpath+'/reports/'+str(ip)+'/wordpress.txt')
-        os.system('/usr/bin/qterminal 2> /dev/null -e sudo wpscan --url'+ip+' -P '+ocpath+'/wordlists/rock100.txt >> '+ocpath+'/reports/'+str(ip)+'/wordpress.txt')
+        os.system('/usr/bin/qterminal 2> /dev/null -e sudo python2 '+netpath+' -i '+ip+' -m '+command_string+' -o '+ocpath+'/reports/'+str(ip)+'/wordpress.txt')
+        os.system('/usr/bin/qterminal 2> /dev/null -e sudo wpscan --url '+ip+' -P '+ocpath+'/wordlists/fast.txt >> '+ocpath+'/reports/'+str(ip)+'/wordpress.txt')
         print(colored("[-] Wordpress brute force successful:", 'green'))
     except:
         print(colored("[!] you need root privilege to run the scanner", 'red'))
