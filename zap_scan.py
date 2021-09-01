@@ -5,8 +5,6 @@ from zapv2.ascan import ascan
 from zapv2.core import core
 import os
 
-# The URL of the application to be tested
-
 ocpath='/home/administrateur/oculus/oculus'
 apiKey = 'k5bt414j2r1d7roiul6funj0cu'
 
@@ -24,7 +22,7 @@ def spidering(target):
     print(colored('[-] Spider has completed!',"green"))
     # Prints the URLs the spider has crawled
     print(colored('\n'.join(map(str, zap.spider.results(scanID))),"magenta"))
-    # If required post process the spider results
+
     
 def activescan(target,report_path):
     print(colored("[~] Running OWASP zed attack proxy active scan:", 'blue'))
@@ -36,7 +34,6 @@ def activescan(target,report_path):
         time.sleep(5)
 
     print(colored('[-] Active scan completed!',"green"))
-    # Print vulnerabilities found by the scanning
     print(colored('Hosts: {}'.format(', '.join(zap.core.hosts)),"magenta"))
     if zap.core.alerts(baseurl=target):
         print(colored('[!] Scan Done : Vulnerabilities were found','red'))
