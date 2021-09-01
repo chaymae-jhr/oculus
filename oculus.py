@@ -42,17 +42,20 @@ def main():
 		if len(http) != 0  :
 			print(colored("HTTP open port found", 'yellow'))
 			if 'wordpress' in cms:
+				print(colored("Wordpress template found", 'yellow'))
 				functions.wordpress_att('./net-modules/wp_modules.txt',ip)
 			elif 'joomla' in cms:
+				print(colored("Joomla template found", 'yellow'))
 				functions.joomla_nettacker('./net-modules/joomla_modules.txt',ip)
 			elif 'drupal' in cms:
+				print(colored("Drupal template found", 'yellow'))
 				functions.drupal_nettacker('./net-modules/drupal_modules.txt',ip)
 	
 			else:
 				pass
 			try:
 				print(colored("[~] Running Nikto:", 'blue'))
-				os.system(SEC_PATH  + 'qterminal -e "nikto +h '+url+' -output '+path_dir+'/nikto.txt"') # This will run nikto to scan the target from top 10 owasp vuln
+				os.system(SEC_PATH  + 'qterminal 2> /dev/null -e nikto +h '+url+' -output '+path_dir+'/nikto.txt') # This will run nikto to scan the target from top 10 owasp vuln
 				print(colored("[-] Nikto run successfully:", 'green'))
 			except:
 				print(colored("[!] Nikto couldn't be run correctly", 'red'))
