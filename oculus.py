@@ -81,7 +81,7 @@ def main():
 		if len(ssh) != 0:
 			try:
 				ssh_port = ssh[0]
-				print(colored("[~] FTP brute force in process, please wait:",'blue'))
+				print(colored("[~] SSH brute force in process, please wait:",'blue'))
 				functions.ssh_brute(ip,ssh_port)
 			except:
 				print(colored("[!] SSH Testing failed", 'red'))
