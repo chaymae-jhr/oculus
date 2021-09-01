@@ -38,8 +38,9 @@ def activescan(target,report_path):
     print(colored('[-] Active scan completed!',"green"))
     # Print vulnerabilities found by the scanning
     print(colored('Hosts: {}'.format(', '.join(zap.core.hosts)),"magenta"))
-    print(colored('[!] Alerts: ',"red"))
-    print(colored(zap.core.alerts(baseurl=target),"red"))
+    if zap.core.alerts(baseurl=target):
+        print(colored('[!] Scan Done : Vulnerabilities were found','red'))
+    else:
+        print(colored('[-] Scan Done : No alerts found','green'))
     print(colored('[-] HTML report generated','green'))
-    print(zap.core.htmlreport)
-    os.system('/usr/bin/qterminal -e curl http://127.0.0.1:8080/OTHER/core/other/htmlreport/?apikey='+apiKey+' >> '+report_path)
+    os.system('/usr/bin/qterminal 2> /dev/null -e curl http://127.0.0.1:8080/OTHER/core/other/htmlreport/?apikey='+apiKey+' -o '+report_path)
