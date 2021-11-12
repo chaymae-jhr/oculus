@@ -26,7 +26,7 @@ in the file funtions.py, you are going to have to set the folowing vriables :
 
 ![image](https://user-images.githubusercontent.com/67756131/141388984-25046704-099c-4cbd-987f-a05da1c56a03.png)
 
-you'll have to set up the OWASP ZAP API key as well : 
+you'll have to set up the OWASP ZAP API key as well, you are going to need to keep owasp ZAP running while using OCULUS : 
 
 ![image](https://user-images.githubusercontent.com/67756131/141389405-d4a30148-507a-40bc-8b84-8fbbbd4efe5e.png)
 
