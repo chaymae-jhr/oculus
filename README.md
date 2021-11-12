@@ -22,6 +22,21 @@ please refer to : https://owasp.org/www-project-nettacker/
 ## Configuration
 
 there are few steps that you need to set up before using the tool 
+in the file funtions.py, you are going to have to set the folowing vriables : 
+
+![image](https://user-images.githubusercontent.com/67756131/141388984-25046704-099c-4cbd-987f-a05da1c56a03.png)
+
+you'll have to set up the OWASP ZAP API key as well : 
+
+![image](https://user-images.githubusercontent.com/67756131/141389405-d4a30148-507a-40bc-8b84-8fbbbd4efe5e.png)
+
+owasp zap > Tools > Options > API 
+
+![image](https://user-images.githubusercontent.com/67756131/141389520-24896f66-f6e2-41e2-8e90-58dc9afc1cc7.png)
+
+copy the API key and paste it in the zap_scan.py
+
+![image](https://user-images.githubusercontent.com/67756131/141389658-70dd3252-510c-47ee-8faf-15f79152ffd8.png)
 
 ## Usage
 
