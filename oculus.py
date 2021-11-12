@@ -13,7 +13,7 @@ import zap_scan
 SEC_PATH = "/usr/bin/"
 ocpath='/home/administrateur/oculus/oculus'
 def print_banner(): #Print the oculus banner 
-	print(colored(text2art ("OCULUS"),'cyan'))
+	print(colored(text2art("OCULUS"),'cyan'))
 	print(colored("|_ Version :", 'red',attrs=['bold']),colored(" 1.0#beta","cyan"))
 	print(colored("|_ Authors :", 'red',attrs=['bold']),colored(" Ilham & Chaymae","cyan"))
 	print(colored("|_ Usage :",'red',attrs=['bold']),colored(" python3 oculus.py [options]","cyan"))
@@ -39,7 +39,8 @@ def main():
 		ssh=protocols[2]
 		telnet=protocols[3]
 		smtp=protocols[4]
-		print(colored('the protocols that were detected : ','green',colored(protocols,'cyan')))
+		print(colored('the protocols that were detected : ','green'),colored(protocols,'cyan'))
+		#print(colored(protocols,'cyan'))
 		if len(http) != 0  :
 			print(colored("HTTP open port found", 'yellow')) 
 			if 'wordpress' in cms:
@@ -106,7 +107,8 @@ def main():
 
 	except ValueError as e:
 		print(e)
-	except:
+	except Exception as e:
+		print(e)
 		print(colored("[!] OCULUS scan failed",'red'))
 	
 	

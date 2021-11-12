@@ -6,8 +6,8 @@ from zapv2.core import core
 import os
 #we tried to implement zap API basic scans 
 
-ocpath='/home/administrateur/oculus/oculus'
-apiKey = 'k5bt414j2r1d7roiul6funj0cu'
+ocpath='./'
+apiKey = 'q3qmcldb47fruoq48oojulsi2u'
 
 # By default ZAP API client will connect to port 8080
 zap = ZAPv2(apikey=apiKey)

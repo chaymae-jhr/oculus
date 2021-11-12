@@ -4,8 +4,12 @@ from pathlib import Path
 from termcolor import colored
 import re
 
-netpath='/home/administrateur/tools/Nettacker/nettacker.py'
-ocpath='/home/administrateur/oculus/oculus'
+netpath='/home/thevbait/Nettacker/nettacker.py' #set up the location of your nettacker python file
+ocpath='./' #set up the project path
+ssh_users=''+ocpath+'/wordlists/ssh_default_users.txt' #set ssh bruteforce users
+ssh_pw=''+ocpath+'/wordlists/ssh_default_passwords.txt' #set ssh bruteforce passwords
+telnet_users=''+ocpath+'/wordlists/telnet_default_users.txt' #set telnet bruteforce users
+telnet_pw=''+ocpath+'/wordlists/telnet_default_creds.txt' #set telnet bruteforce passwords
 
 #add http in the front of the url for owasp zap using regex
 def formaturl(url):
@@ -119,14 +123,12 @@ def ftp_brute(ip,port):
     print(colored("[~] Running ncrack, please wait:", 'blue'))
     print(str(ip)+':'+str(port))
     os.system('/usr/bin/qterminal 2> /dev/null -e sudo ncrack --pairwise '+str(ip)+':'+str(port)+' -oN '+ocpath+'/reports/'+str(ip)+'/ftp.txt')#this will run ncrack to bruteforce ftp using the ncrack default wordlist 
-    print('salam')
 
 def ftp_nettacker(ftp_modules,ip):
     print(colored("[~] Nettacker FTP modules running:", 'blue'))
     p = Path(ftp_modules)
     commandl = p.read_text().splitlines()
     command_string=','.join(commandl)
-    print(command_string)
     try:
         os.system('/usr/bin/qterminal 2> /dev/null -e sudo python2 '+netpath+' -i'+ip+' -m '+command_string+' -o '+ocpath+'/reports/'+str(ip)+'/ftp_nettacker.txt')#this will run owasp nettacker and scan the app using ftp modules  
     except:
@@ -134,8 +136,6 @@ def ftp_nettacker(ftp_modules,ip):
 
 #SSH ----------------------------------------------------------------------------
 def ssh_brute(ip,port):
-    ssh_users=''+ocpath+'/wordlists/ssh_default_users.txt'
-    ssh_pw=''+ocpath+'/wordlists/ssh_default_passwords.txt'
     print(colored("[~] Running Hydra to brute force SSH, please wait:", 'blue'))
     try:
         os.system('/usr/bin/qterminal 2> /dev/null -e sudo hydra -L '+str(ssh_users)+' -P '+str(ssh_pw)+' ssh://'+str(ip)+' -t 4 -s '+str(port)+' -o '+ocpath+'/reports/'+str(ip)+'/ssh.txt')#this will run hydra to run a bruteforce on shh using the default ssh creds wordlist 
@@ -152,8 +152,6 @@ def smtp_brute(enum_wordlist,ip):
 #telnet ----------------------------------------------------------------------------
 def telnet_brute(ip):
     print(colored("[~] Running Hydra to brute force telnet, please wait:", 'blue'))
-    telnet_users=''+ocpath+'/wordlists/ssh_default_users.txt'
-    telnet_pw=''+ocpath+'/wordlists/telnet_default_creds.txt'
     try:
         os.system('/usr/bin/qterminal 2> /dev/null -e sudo hydra -L '+str(telnet_users)+' -P '+str(telnet_pw)+' '+str(ip)+' telnet >> '+ocpath+'/reports/'+str(ip)+'/telnet.txt')#this will run hydra to run a bruteforce on shh using the default telnet creds wordlist 
     except:
