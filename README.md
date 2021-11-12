@@ -19,6 +19,10 @@ as oculus has the OWASP ZAP api integrated, you are going to need to install it 
 you are also going to need to install, if not already existing in your environement, Nikto, Nmap, Ncrack, Hydra, WPscan, and OWASP Nettacker.
 please refer to : https://owasp.org/www-project-nettacker/
 
+## Configuration
+
+there are few steps that you need to set up before using the tool 
+
 ## Usage
 
 ```sh
